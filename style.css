@@ -1,0 +1,319 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: black; /* Pembaruan ini */
+  color: #fff;
+  margin-bottom: 60px;
+  overflow-x: hidden;
+  padding-top: 50px; /* Sesuaikan dengan tinggi navbar Anda */
+  padding-bottom: 100px;
+}
+
+.main-container {
+  max-width: 1400px; /* atau sesuai kebutuhan */
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.section {
+  margin-bottom: 3rem;
+}
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.95);
+  color: whitesmoke;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
+  height: 70px;
+}
+
+.navbar .navbar-logo {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: whitesmoke;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+  flex: 1;
+}
+
+/* Container untuk Favorite dan Profile */
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar .navbar-nav a {
+  color: whitesmoke;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 8px 15px;
+  border-radius: 20px;
+}
+
+.control-btn.Profile {
+  background: none;
+  border: none;
+  color: whitesmoke;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  margin-right: 2rem; /* Jarak dari tepi kanan */
+}
+
+/* Sisanya tetap sama seperti sebelumnya */
+.navbar .navbar-nav a:hover {
+  color: #1ed760;
+  background-color: rgba(30, 215, 96, 0.1);
+}
+
+.favorite-icon {
+  margin-right: 0.5rem;
+  color: #ffd700;
+  transition: transform 0.3s ease;
+}
+
+.navbar .navbar-nav a:hover .favorite-icon {
+  transform: scale(1.2);
+}
+
+.control-btn.Profile:hover {
+  color: #1ed760;
+  background-color: rgba(30, 215, 96, 0.1);
+}
+
+.control-btn.Profile i {
+  margin-right: 8px;
+}
+
+.sidebar {
+  display: none;
+  position: absolute;
+  top: 75px;
+  right: 20px;
+  background-color: #121212;
+  color: white;
+  padding: 15px 25px;
+  z-index: 1000;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  min-width: 200px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin: 12px 0;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.sidebar a:hover {
+  background-color: rgba(30, 215, 96, 0.1);
+  color: #1ed760;
+  text-decoration: none;
+  transform: translateX(5px);
+}
+
+/* Playlist explore */
+.playlist {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 10px 0;
+  scrollbar-width: thin;
+  scrollbar-color: #888 transparent; /* Custom scrollbar for Firefox */
+}
+
+.playlist::-webkit-scrollbar {
+  height: 10px; /* Horizontal scrollbar */
+}
+
+.playlist::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 8px;
+}
+
+.playlist::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.playlist-item {
+  flex: 0 0 220px; /* Fixed width */
+  height: 380px; /* Fixed height */
+  background-color: #1a1a1a; /* Dark background */
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.playlist-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.playlist-item img {
+  width: 100%; /* Full width */
+  height: 60%; /* 60% of card height */
+  object-fit: cover; /* Crop image without stretching */
+  border-bottom: 1px solid #333;
+}
+
+.playlist-item p {
+  margin: 8px 0;
+  padding: 0 10px;
+  text-align: center;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.favorite-btn {
+  background-color: #ff5252;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: auto;
+  transition: all 0.3s ease-in-out;
+}
+
+.favorite-btn:hover {
+  background-color: #ff0000;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(255, 82, 82, 0.5);
+}
+
+.favorite-btn:active {
+  transform: scale(0.95);
+  background-color: #ff4040;
+  box-shadow: none;
+}
+
+/* Hot Songs */
+.hot-songs {
+  padding: 25px;
+}
+
+.hot-songs h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.hot-songs-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+.song-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #333;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.song-item img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.song-info .song-title {
+  font-weight: 600;
+  color: #fff;
+}
+
+.song-info .artist-name {
+  color: #b3b3b3;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+.favorite-btn {
+  background-color: #ff5252;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.favorite-btn:hover {
+  background-color: #ff0202;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(255, 82, 82, 0.5);
+}
+
+.favorite-btn:active {
+  transform: scale(0.95);
+  background-color: #ff4040;
+  box-shadow: none;
+}
+
+/* Media Queries (responsive breakpoint) */
+
+/* Laptop */
+@media (max-width: 1366px) {
+  html {
+    font-size: 75%;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  html {
+    font-size: 62.5%;
+  }
+}
+
+/* HP */
+@media (max-width: 450px) {
+  html {
+    font-size: 55%;
+  }
+}
