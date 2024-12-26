@@ -14,13 +14,18 @@ $allSongs = $data->getAllSongs();
     <h2 class="section-title">Explore</h2>
     <div class="playlist">
         <?php foreach ($allSongs as $song): ?>
-            <div class="playlist-item" onclick="playAudio('<?= htmlspecialchars($song['file_path']) ?>', '<?= htmlspecialchars($song['title']) ?>', '<?= htmlspecialchars($song['artist']) ?>')">
-                <img src="img/<?= htmlspecialchars($song['image']) ?>" alt="<?= htmlspecialchars($song['title']) ?>" />
-                <p class="title"><?= htmlspecialchars($song['title']) ?></p>
-                <p class="artist"><?= htmlspecialchars($song['artist']) ?></p>
-                <!-- Tombol favorit -->
-                <button class="favorite-btn" onclick="addFavorite(<?= $song['id'] ?>)">Add to Favorites</button>
-            </div>
+            <div class="playlist-item" onclick="playAudio('<?= htmlspecialchars($song['file_path']) ?>', 
+                       '<?= htmlspecialchars($song['title']) ?>', 
+                       '<?= htmlspecialchars($song['artist_name']) ?>')">
+                       <img src="img/<?= htmlspecialchars($song['image']) ?>" alt="<?= htmlspecialchars($song['title']) ?>" />
+                        <div class="song-info">
+                            <p class="song-title"><?= htmlspecialchars($song['title']) ?></p>
+                            <p class="artist-name"><?= htmlspecialchars($song['artist_name']) ?></p>
+                        </div>
+                        <button class="favorite-btn" onclick="event.stopPropagation(); addFavorite(<?= $song['id'] ?>)">
+                            Add to Favorites
+                        </button>
+                    </div>
         <?php endforeach; ?>
         
     </div>

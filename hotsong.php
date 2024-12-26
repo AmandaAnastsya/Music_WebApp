@@ -15,18 +15,22 @@ ob_end_flush();
     <h2>New added!</h2>
     <div class="hot-songs-grid">
         <?php foreach ($hotSongs as $song): ?>
-            <div class="song-item" onclick="playAudio('<?= htmlspecialchars($song['file_path']) ?>', '<?= htmlspecialchars($song['title']) ?>', '<?= htmlspecialchars($song['artist']) ?>')">
-                <img src="img/<?= htmlspecialchars($song['image']) ?>" alt="<?= htmlspecialchars($song['title']) ?>" />
-                <div class="song-info">
-                    <p class="song-title"><?= htmlspecialchars($song['title']) ?></p>
-                    <p class="artist-name"><?= htmlspecialchars($song['artist']) ?></p>
-                </div>
-                <!-- Tombol favorit -->
-                <button class="favorite-btn" onclick="addFavorite(<?= $song['id'] ?>)">Add to Favorites</button>
-            </div>
+            <div class="song-item" onclick="playAudio('<?= htmlspecialchars($song['file_path']) ?>', 
+                       '<?= htmlspecialchars($song['title']) ?>', 
+                       '<?= htmlspecialchars($song['artist_name']) ?>')">
+                       <img src="img/<?= htmlspecialchars($song['image']) ?>" alt="<?= htmlspecialchars($song['title']) ?>" />
+                        <div class="song-info">
+                            <p class="song-title"><?= htmlspecialchars($song['title']) ?></p>
+                            <p class="artist-name"><?= htmlspecialchars($song['artist_name']) ?></p>
+                        </div>
+                        <button class="favorite-btn" onclick="event.stopPropagation(); addFavorite(<?= $song['id'] ?>)">
+                            Add to Favorites
+                        </button>
+                    </div>
         <?php endforeach; ?>
     </div>
 </section>
+
 
 <!-- Menambahkan Fungsi JavaScript -->
 <script>
@@ -47,7 +51,9 @@ function addFavorite(songId) {
         }
     };
 
+    
     // Mengirim data song_id ke server
     xhr.send("song_id=" + songId);
 }
+
 </script>

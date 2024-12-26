@@ -1,11 +1,12 @@
 <?php
+// Mengambil data genre dan lagu berdasarkan genre
 require_once 'database/Music.php';
 $data = new Music();
 $genres = $data->getAllGenres();
 
 // Jika genre dipilih, ambil lagu-lagu dalam genre tersebut
-$selectedGenre = isset($_GET['genre']) ? $_GET['genre'] : null;
-$songsByGenre = $selectedGenre ? $data->getSongsByGenre($selectedGenre) : [];
+$selectedGenreId = isset($_GET['genre']) ? $_GET['genre'] : null;
+$songsByGenre = $selectedGenreId ? $data->getSongsByGenre($selectedGenreId) : [];
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +16,7 @@ $songsByGenre = $selectedGenre ? $data->getSongsByGenre($selectedGenre) : [];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music by Genre</title>
     <link rel="stylesheet" href="style.css" />
-    <style>
+     <style>
         .genre-container {
             padding: 20px;
         }
@@ -40,7 +41,7 @@ $songsByGenre = $selectedGenre ? $data->getSongsByGenre($selectedGenre) : [];
         .genre-btn.active {
             background-color: #1DB954;
         }
-    </style>
+    </style> 
 </head>
 <body>
     <section class="genre-container">
@@ -49,23 +50,25 @@ $songsByGenre = $selectedGenre ? $data->getSongsByGenre($selectedGenre) : [];
         <!-- Genre Buttons -->
         <div class="genre-buttons">
             <?php foreach ($genres as $genre): ?>
-                <a href="?genre=<?= urlencode($genre) ?>" 
-                   class="genre-btn <?= ($selectedGenre === $genre) ? 'active' : '' ?>">
-                    <?= htmlspecialchars($genre) ?>
+                <a href="?genre=<?= urlencode($genre['id']) ?>" 
+                   class="genre-btn <?= ($selectedGenreId === (int)$genre['id']) ? 'active' : '' ?>">
+                    <?= htmlspecialchars($genre['genre_name']) ?>
                 </a>
             <?php endforeach; ?>
         </div>
 
         <!-- Songs Grid -->
-        <?php if ($selectedGenre): ?>
-            <h3>Songs in <?= htmlspecialchars($selectedGenre) ?></h3>
+        <?php if ($selectedGenreId): ?>
+            <h3>Songs in <?= htmlspecialchars($genres[array_search($selectedGenreId, array_column($genres, 'id'))]['genre_name']) ?></h3>
             <div class="hot-songs-grid">
                 <?php foreach ($songsByGenre as $song): ?>
-                    <div class="song-item" onclick="playAudio('<?= htmlspecialchars($song['file_path']) ?>', '<?= htmlspecialchars($song['title']) ?>', '<?= htmlspecialchars($song['artist']) ?>')">
-                        <img src="img/<?= htmlspecialchars($song['image']) ?>" alt="<?= htmlspecialchars($song['title']) ?>" />
+                    <div class="song-item" onclick="playAudio('<?= htmlspecialchars($song['file_path']) ?>', 
+                       '<?= htmlspecialchars($song['title']) ?>', 
+                       '<?= htmlspecialchars($song['artist_name']) ?>')">
+                       <img src="img/<?= htmlspecialchars($song['image']) ?>" alt="<?= htmlspecialchars($song['title']) ?>" />
                         <div class="song-info">
                             <p class="song-title"><?= htmlspecialchars($song['title']) ?></p>
-                            <p class="artist-name"><?= htmlspecialchars($song['artist']) ?></p>
+                            <p class="artist-name"><?= htmlspecialchars($song['artist_name']) ?></p>
                         </div>
                         <button class="favorite-btn" onclick="event.stopPropagation(); addFavorite(<?= $song['id'] ?>)">
                             Add to Favorites
@@ -94,6 +97,11 @@ $songsByGenre = $selectedGenre ? $data->getSongsByGenre($selectedGenre) : [];
             }
         };
         xhr.send("song_id=" + songId);
+    }
+
+    function playAudio(audioUrl, title, artist) {
+        alert("Now playing: " + title + " by " + artist + "\nURL: " + audioUrl);
+        // Integrasikan player audio di sini jika diinginkan
     }
     </script>
 </body>

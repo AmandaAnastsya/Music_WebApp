@@ -101,21 +101,21 @@ if ($songId) {
     const songs = <?php echo json_encode($songs); ?>;
 
     function loadSong(index) {
-        const song = songs[index];
-        audio.src = song.file_path; // Pastikan path valid
-        trackTitle.textContent = song.title;
-        trackArtist.textContent = song.artist;
-        audio.load();
-        audio.play(); // Memulai pemutaran setelah memuat
-    }
+    const song = songs[index];
+    audio.src = song.file_path;
+    trackTitle.textContent = song.title;
+    trackArtist.textContent = song.artist_name; // Ubah dari song.artist menjadi song.artist_name
+    audio.load();
+    audio.play();
+}
 
-    function playAudio(filePath, title, artist) {
-        const index = songs.findIndex(song => song.file_path === filePath);
-        if (index !== -1) {
-            currentSongIndex = index; // Mengatur currentSongIndex
-            loadSong(currentSongIndex); // Memuat lagu
-        }
+function playAudio(filePath, title, artist) {
+    const index = songs.findIndex(song => song.file_path === filePath);
+    if (index !== -1) {
+        currentSongIndex = index;
+        loadSong(currentSongIndex);
     }
+}
 
     function togglePlayPause() {
         const playPauseIcon = document.getElementById('play-pause-icon');
